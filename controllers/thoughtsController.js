@@ -57,8 +57,43 @@ const thoughtController = {
       },
 
     // add reaction to thoughts
+    addReaction(req, res) {
+        console.log('You are adding an reaction');
+        console.log(req.body);
+        Thought.findOneAndUpdate(
+          { _id: req.params.thoughtId },
+          { $addToSet: { reactions: body } },
+          { runValidators: true, new: true }
+        )
+          .then((thought) =>
+            !thought
+              ? res
+                  .status(404)
+                  .json({ message: 'No reaction found with that ID :(' })
+              : res.json(thought)
+          )
+          .catch((err) => res.status(500).json(err));
+      },
+    
 
     // remove a reaction
+    removeReaction(req, res) {
+        Thought.findOneAndUpdate(
+          { _id: req.params.thoughtId },
+          { $pull: { reactions: { reactionId: req.params.reactionId } } },
+          { runValidators: true, new: true }
+        )
+          .then((thought) =>
+            !thought
+              ? res
+                  .status(404)
+                  .json({ message: 'No reaction found with that ID :(' })
+              : res.json(thought)
+          )
+          .catch((err) => res.status(500).json(err));
+      },
+    
+
 }
 
 module.export = thoughtController

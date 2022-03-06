@@ -6,8 +6,8 @@ module.exports = {User, Thought};
 const userController = {
 
 
-    
-// remover friend from friend list
+
+// remove friend from friend list
 removeFriend(req, res) {
     User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: req.params.friendId }}, { new: true})
     .then((dbUserData) => {
