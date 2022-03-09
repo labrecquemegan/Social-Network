@@ -1,5 +1,5 @@
-const User = require('./User');
-const Thought = require('./Thoughts');
+const User = require('../models/User');
+const Thought = require('../models/Thought');
 
 module.exports = {User, Thought};
 
@@ -26,7 +26,7 @@ getSingleUser(req, res) {
 
 
 // create new user
-createCourse(req, res) {
+createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
       .catch((err) => {
@@ -98,4 +98,4 @@ removeFriend(req, res) {
 }
 }
 
-module.exports = userControllers
+module.exports = userController
